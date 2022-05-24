@@ -8,22 +8,29 @@ for (let i = 0; i < cellsList.length; i++) {
     cells[i % maxIndex].push(cellsList[i]);
 }
 
-cells[36][32].classList.add('snake');
-cells[37][32].classList.add('snake');
-cells[38][32].classList.add('snake');
-
-let snakeList = document.querySelectorAll('div.snake');
-let snake = Array.prototype.slice.call(snakeList);
+let snake;
 let xHead = 36;
 let yHead = 32;
 let direction = 'left';
 let intervalOfMoving;
+let intervalOfChangeObstacle;
 ////////////////////////////
 let difficulty = 0.5;
 
-makeHeadAndTail();
-move();
+makeSnake();
+listenForMove();
+makeEat();
+changeObstacle();
 
+function makeSnake() {
+    cells[36][32].classList.add('snake');
+    cells[37][32].classList.add('snake');
+    cells[38][32].classList.add('snake');
+
+    let snakeList = document.querySelectorAll('div.snake');
+    snake = Array.prototype.slice.call(snakeList);
+    makeHeadAndTail();
+}
 
 function deleteHeadAndTail() {
     for (let i = 0; i < snake.length; i++) {
@@ -36,33 +43,29 @@ function makeHeadAndTail() {
     snake[snake.length - 1].classList.add('snake_tail');
 }
 
-function move() {
+function listenForMove() {
     document.addEventListener('keydown', (e) => {
         if (e.defaultPrevented) {
             return;
         }
-        if ((e.key == 'w' || e.key == 'W' || e.key == 'ц' || e.key == 'Ц' || e.key == 'ArrowUp') 
-        && direction != 'down' && direction != 'up') {
-            if (direction != 'up') { clearInterval(intervalOfMoving);}
-            direction = 'up';
+        if ((e.key == 'w' || e.key == 'W' || e.key == 'ц' || e.key == 'Ц' || e.key == 'ArrowUp')
+            && direction != 'down' && direction != 'up') {
+            clearInterval(intervalOfMoving);
             moving(shiftUp);
         }
-        if ((e.key == 's' || e.key == 'S' || e.key == 'ы' || e.key == 'Ы' || e.key == 'ArrowDown') 
-        && direction != 'up' && direction != 'down') {
-            if (direction != 'down') { clearInterval(intervalOfMoving);}
-            direction = 'down';
+        if ((e.key == 's' || e.key == 'S' || e.key == 'ы' || e.key == 'Ы' || e.key == 'ArrowDown')
+            && direction != 'up' && direction != 'down') {
+            clearInterval(intervalOfMoving);
             moving(shiftDown);
         }
-        if ((e.key == 'a' || e.key == 'A' || e.key == 'ф' || e.key == 'Ф' || e.key == 'ArrowLeft') 
-        && direction != 'right' && direction != 'left') {
-            if (direction != 'left') { clearInterval(intervalOfMoving);}
-            direction = 'left';
+        if ((e.key == 'a' || e.key == 'A' || e.key == 'ф' || e.key == 'Ф' || e.key == 'ArrowLeft')
+            && direction != 'right' && direction != 'left') {
+            clearInterval(intervalOfMoving);
             moving(shiftLeft);
         }
-        if ((e.key == 'd' || e.key == 'D' || e.key == 'в' || e.key == 'В' || e.key == 'ArrowRight') 
-        && direction != 'left' && direction != 'right') {
-            if (direction != 'right') { clearInterval(intervalOfMoving);}
-            direction = 'right';
+        if ((e.key == 'd' || e.key == 'D' || e.key == 'в' || e.key == 'В' || e.key == 'ArrowRight')
+            && direction != 'left' && direction != 'right') {
+            clearInterval(intervalOfMoving);
             moving(shiftRight);
         }
         e.preventDefault();
@@ -76,6 +79,7 @@ function shiftUp() {
     deleteHeadAndTail();
     snake.pop().classList.remove('snake');
     makeHeadAndTail();
+    direction = 'up';
 }
 
 function shiftDown() {
@@ -85,6 +89,7 @@ function shiftDown() {
     deleteHeadAndTail();
     snake.pop().classList.remove('snake');
     makeHeadAndTail();
+    direction = 'down';
 }
 
 function shiftLeft() {
@@ -94,6 +99,7 @@ function shiftLeft() {
     deleteHeadAndTail();
     snake.pop().classList.remove('snake');
     makeHeadAndTail();
+    direction = 'left';
 }
 
 function shiftRight() {
@@ -103,11 +109,44 @@ function shiftRight() {
     deleteHeadAndTail();
     snake.pop().classList.remove('snake');
     makeHeadAndTail();
+    direction = 'right';
 }
 
 function moving(func) {
     intervalOfMoving = setInterval(func, 1000 * difficulty);
 }
 
+function getRandomCell() {
+    let xRandom;
+    let yRandom;
+    do {
+        xRandom = Math.floor(Math.random() * 63.99999);
+        yRandom = Math.floor(Math.random() * 63.99999);
+    } while (cells[xRandom][yRandom].classList.contains('snake') ||
+    cells[xRandom][yRandom].classList.contains('eat') ||
+    cells[xRandom][yRandom].classList.contains('obstacle') ||
+    (((xHead + 7) % maxIndex > xRandom) && ((xHead - 7 + maxIndex) % maxIndex < xRandom)) ||
+        (((yHead + 7) % maxIndex > yRandom) && ((yHead - 7 + maxIndex) % maxIndex < yRandom)));
+    return cells[xRandom][yRandom];
+}
 
-    // 1 раз в секунду * коэфф сложности выполняется сдвиг змеи
+function makeEat() {
+    getRandomCell().classList.add('eat');
+}
+
+function makeObstacle() {
+    for (let i = 0; i < 50; i++) {
+        getRandomCell().classList.add('obstacle');
+    }
+}
+
+function deleteObstacle() {
+    let obstacles = document.querySelectorAll('div.obstacle');
+    for (i of obstacles) {
+        i.classList.remove('obstacle');
+    }
+}
+
+function changeObstacle() {
+    intervalOfChangeObstacle = setInterval(() => {deleteObstacle(); makeObstacle();}, 5000);
+}

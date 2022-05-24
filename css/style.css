@@ -96,15 +96,18 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid green;
 }
 
-.snake_head {
-  background-color: #f8481c;
-  border-radius: 50%;
-}
-
 .snake {
   background-color: cadetblue;
 }
 
-.snake_tail {
-  background-color: #bb4fdb;
+.snake_head {
+  background-color: #f8481c;
+}
+
+.eat {
+  background-color: #00c0da;
+}
+
+.obstacle {
+  background-color: #30311c;
 }

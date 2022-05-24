@@ -20,15 +20,23 @@
       }
 }
 
-.snake_head {
-      background-color: rgb(248, 72, 28);
-      border-radius: 50%;
-}
 .snake {
       background-color: cadetblue;
 
 }
-.snake_tail {
-      background-color: rgb(187, 79, 219);
 
+.snake_head {
+      background-color: rgb(248, 72, 28);
+     
+}
+.snake_tail {
+      // background-color: rgb(187, 79, 219);
+}
+
+.eat {
+      background-color: rgb(0, 192, 218);
+}
+
+.obstacle {
+      background-color: rgb(48, 49, 28);
 }
