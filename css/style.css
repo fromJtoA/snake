@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 .main__cell {
   height: 10px;
   width: 10px;
-  border: 1px solid green;
+  border: 1px solid #d8d8d8;
 }
 
 .snake {
