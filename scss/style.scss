@@ -23,12 +23,12 @@
 }
 
 .snake {
-      background-color: cadetblue;
+      background-color: rgb(112, 204, 89);
 
 }
 
 .snake_head {
-      background-color: rgb(248, 72, 28);
+      background-color: rgb(33, 143, 11);
      
 }
 .snake_tail {
@@ -37,6 +37,10 @@
 
 .eat {
       background-color: rgb(0, 192, 218);
+}
+
+.bonus_eat {
+      background-color: rgb(233, 5, 73);
 }
 
 .obstacle {

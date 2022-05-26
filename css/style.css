@@ -97,15 +97,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .snake {
-  background-color: cadetblue;
+  background-color: #70cc59;
 }
 
 .snake_head {
-  background-color: #f8481c;
+  background-color: #218f0b;
 }
 
 .eat {
   background-color: #00c0da;
+}
+
+.bonus_eat {
+  background-color: #e90549;
 }
 
 .obstacle {

@@ -1,12 +1,16 @@
 let cellsList = document.querySelectorAll('div.main__cell');
 let maxIndex = Math.sqrt(cellsList.length);
 let cells = [];
-let snake;
+let snake = [];
 let xHead = 36;
 let yHead = 32;
 let exTail;
 let cellEat;
-let needObstacle = true;
+let cellBonusEat;
+let countEat = 0;
+let cellsObstacles = [];
+let bonusTimer = 10000;
+let needObstacle = false;
 let direction = 'left';
 let intervalOfMoving;
 let intervalOfChangeObstacle;
@@ -26,13 +30,6 @@ function init() {
     for (let i = 0; i < cellsList.length; i++) {
         cells[i % maxIndex].push(cellsList[i]);
     }
-    
-    for (let i = 0; i < maxIndex; i++) {
-        for (let j = 0; j < maxIndex; j++) {
-            if ((i % 2 == 1) && (j % 2 == 1)) { cells[i][j].classList.add('main__cell_gray') };
-        }
-        //???????????
-    }
 }
 
 function makeSnake() {
@@ -40,8 +37,9 @@ function makeSnake() {
     cells[37][32].classList.add('snake');
     cells[38][32].classList.add('snake', 'snake_tail');
 
-    let snakeList = document.querySelectorAll('div.snake, div.snake_head');
-    snake = Array.prototype.slice.call(snakeList);
+    snake.push(cells[36][32]);
+    snake.push(cells[37][32]);
+    snake.push(cells[38][32]);
 }
 
 function deleteHeadAndTail() {
@@ -90,8 +88,8 @@ function shift() {
     exTail = snake[snake.length - 1];
     snake.pop().classList.remove('snake');
     makeHeadAndTail();
-    cheakEating();
-    cheakLose();
+    checkLose();
+    checkEat();
 }
 
 function shiftUp() {
@@ -129,11 +127,26 @@ function getRandomCell() {
         xRandom = Math.floor(Math.random() * 63.99999);
         yRandom = Math.floor(Math.random() * 63.99999);
     } while (cells[xRandom][yRandom].classList.contains('snake') ||
+    cells[xRandom][yRandom].classList.contains('bonus_eat') ||
     cells[xRandom][yRandom].classList.contains('eat') ||
     cells[xRandom][yRandom].classList.contains('obstacle') ||
-    (((xHead + 7) % maxIndex > xRandom) && ((xHead - 7 + maxIndex) % maxIndex < xRandom)) || 
-    (((yHead + 7) % maxIndex > yRandom) && ((yHead - 7 + maxIndex) % maxIndex < yRandom)));
-    //????????????????????????????
+        (((xHead + 7) % maxIndex > xRandom) && ((xHead - 7 + maxIndex) % maxIndex < xRandom) &&
+            ((yHead + 7) % maxIndex > yRandom) && ((yHead - 7 + maxIndex) % maxIndex < yRandom)));
+    return cells[xRandom][yRandom];
+}
+
+function getRandomBonusCell() {
+    let xRandom;
+    let yRandom;
+    do {
+        xRandom = Math.floor(Math.random() * 63.99999);
+        yRandom = Math.floor(Math.random() * 63.99999);
+    } while (cells[xRandom][yRandom].classList.contains('snake') ||
+    cells[xRandom][yRandom].classList.contains('bonus_eat') ||
+    cells[xRandom][yRandom].classList.contains('eat') ||
+    cells[xRandom][yRandom].classList.contains('obstacle') ||
+        (((xHead + 20) % maxIndex < xRandom) && ((xHead - 20 + maxIndex) % maxIndex > xRandom) &&
+            ((yHead + 20) % maxIndex < yRandom) && ((yHead - 20 + maxIndex) % maxIndex > yRandom)));
     return cells[xRandom][yRandom];
 }
 
@@ -142,17 +155,23 @@ function makeEat() {
     cellEat.classList.add('eat');
 }
 
+function makeBonusEat() {
+    cellBonusEat = getRandomBonusCell();
+    cellBonusEat.classList.add('bonus_eat');
+}
+
 function makeObstacle() {
     for (let i = 0; i < maxIndex; i++) {
-        getRandomCell().classList.add('obstacle');
+        cellsObstacles.push(getRandomCell());
+        cellsObstacles[i].classList.add('obstacle');
     }
 }
 
 function removeObstacle() {
-    let obstacles = document.querySelectorAll('div.obstacle');
-    for (i of obstacles) {
+    for (i of cellsObstacles) {
         i.classList.remove('obstacle');
     }
+    cellsObstacles = [];
 }
 
 function changeObstacle(needObstacle) {
@@ -161,18 +180,43 @@ function changeObstacle(needObstacle) {
     }
 }
 
-function cheakEating() {
-    if (document.querySelectorAll('div.snake_head.eat').length > 0) {
-        document.querySelector('div.snake_head.eat').classList.remove('eat');
-        exTail.classList.add('snake');
-        snake.push(exTail);
-        deleteHeadAndTail();
-        makeHeadAndTail();
-        makeEat();
+function removeBonusEat() {
+    setTimeout(() => cellBonusEat.classList.remove('bonus_eat'), bonusTimer);
+}
+
+function checkEat() {
+    if (document.querySelectorAll('div.snake_head.eat, div.snake_head.bonus_eat').length > 0) {
+        let eat = document.querySelector('div.snake_head.eat, div.snake_head.bonus_eat');
+        let eatClasses = Array.prototype.slice.call(eat.classList);
+        if (eatClasses.includes('eat')) {
+            eat.classList.remove('eat');
+            countEat++;
+            exTail.classList.add('snake');
+            snake.push(exTail);
+            deleteHeadAndTail();
+            makeHeadAndTail();
+            makeEat();
+            checkBonusTime();
+        } else {
+            eat.classList.remove('bonus_eat');
+            exTail.classList.add('snake');
+            snake.push(exTail);
+            deleteHeadAndTail();
+            makeHeadAndTail();
+            makeEat();
+        }
     }
 }
 
-function cheakLose() {
+function checkBonusTime() {
+    if (countEat % 5 == 0) {
+        countEat = 0;
+        makeBonusEat();
+        removeBonusEat();
+    }
+}
+
+function checkLose() {
     if ((snake.length != new Set(snake).size) ||
         (document.querySelectorAll('div.snake_head.obstacle').length > 0)) {
         clearInterval(intervalOfMoving);
@@ -188,6 +232,7 @@ function removeAll() {
     for (i of snake) {
         i.classList.remove('snake_head', 'snake');
     }
+    snake = [];
 }
 
 function changeMain() {
