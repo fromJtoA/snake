@@ -78,6 +78,16 @@ h1, h2, h3, h4, h5, h6 {
   color: red;
 }
 
+.score {
+  margin: 10px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  font-size: 30px;
+}
+
 .main {
   height: 642px;
   width: 642px;
@@ -97,15 +107,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .snake {
-  background-color: cadetblue;
+  background-color: #70cc59;
 }
 
 .snake_head {
-  background-color: #f8481c;
+  background-color: #218f0b;
 }
 
 .eat {
   background-color: #00c0da;
+}
+
+.bonus_eat {
+  background-color: #e90549;
 }
 
 .obstacle {

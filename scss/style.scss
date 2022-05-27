@@ -3,6 +3,25 @@
 // .container {}
 
 // .h1 {}
+.hiden {
+      display: 
+}
+.score {
+      margin: 10px auto;
+      display: flex;
+      justify-content: space-between;
+      // flex-wrap: wrap;
+      font-size: 30px;
+      &__record {
+            // display: block;
+      }
+      &__score {
+            // display: block;
+      }
+      &__hint {
+            // display: block;
+      }
+}
 
 .main {
       height: 642px;
@@ -16,19 +35,18 @@
             height: 10px;
             width: 10px;
             border: 1px solid rgb(216, 216, 216);
-            &_gray {
-                  // background-color: rgb(216, 216, 216);
-            }
+      &__restart{
+            
       }
 }
 
 .snake {
-      background-color: cadetblue;
+      background-color: rgb(112, 204, 89);
 
 }
 
 .snake_head {
-      background-color: rgb(248, 72, 28);
+      background-color: rgb(33, 143, 11);
      
 }
 .snake_tail {
@@ -37,6 +55,10 @@
 
 .eat {
       background-color: rgb(0, 192, 218);
+}
+
+.bonus_eat {
+      background-color: rgb(233, 5, 73);
 }
 
 .obstacle {
