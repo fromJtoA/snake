@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <title>Snake</title>
+    <link rel="shortcut icon" href="assets/favicon1.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
         <h1 class="h1"></h1>
-        <div class="main">
+        <section class="score">
+            <p class="score__record">Record: 0</p>
+            <p class="score__score">Score: 0</p>
+            <p class="score__hint">Bonus eat disappearing in: 10 sec</p>
+        </section>
+        <section class="main">
             <div class="main__cell"></div>
             <div class="main__cell"></div>
             <div class="main__cell"></div>
@@ -4107,7 +4113,7 @@
             <div class="main__cell"></div>
             <div class="main__cell"></div>
             <div class="main__cell"></div>
-        </div>
+        </section>
     </div>
     <script src="script.js"></script>
 </body>

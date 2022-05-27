@@ -2,15 +2,16 @@ let cellsList = document.querySelectorAll('div.main__cell');
 let maxIndex = Math.sqrt(cellsList.length);
 let cells = [];
 let snake = [];
-let xHead = 36;
-let yHead = 32;
+let xHead;
+let yHead;
 let exTail;
 let cellEat;
 let cellBonusEat;
+let restartBtn;
 let countEat = 0;
 let cellsObstacles = [];
 let bonusTimer = 10000;
-let needObstacle = false;
+let needObstacle = true;
 let direction = 'left';
 let intervalOfMoving;
 let intervalOfChangeObstacle;
@@ -19,7 +20,7 @@ let difficulty = 5.5;
 
 init();
 makeSnake();
-listenForMove();
+listenForMove(needListen);
 makeEat();
 changeObstacle(needObstacle);
 
@@ -33,6 +34,8 @@ function init() {
 }
 
 function makeSnake() {
+    xHead = 36;
+    yHead = 32;
     cells[36][32].classList.add('snake', 'snake_head');
     cells[37][32].classList.add('snake');
     cells[38][32].classList.add('snake', 'snake_tail');
@@ -40,6 +43,7 @@ function makeSnake() {
     snake.push(cells[36][32]);
     snake.push(cells[37][32]);
     snake.push(cells[38][32]);
+    needListen = true;
 }
 
 function deleteHeadAndTail() {
@@ -80,6 +84,7 @@ function listenForMove() {
         e.preventDefault();
     }, true);
 }
+
 
 function shift() {
     cells[xHead][yHead].classList.add('snake');
@@ -203,7 +208,6 @@ function checkEat() {
             snake.push(exTail);
             deleteHeadAndTail();
             makeHeadAndTail();
-            makeEat();
         }
     }
 }
@@ -221,6 +225,7 @@ function checkLose() {
         (document.querySelectorAll('div.snake_head.obstacle').length > 0)) {
         clearInterval(intervalOfMoving);
         clearInterval(intervalOfChangeObstacle);
+        needListen = false;
         removeAll();
         changeMain();
     }
@@ -228,13 +233,20 @@ function checkLose() {
 
 function removeAll() {
     removeObstacle();
+    cellBonusEat.classList.remove('bonus_eat');
     cellEat.classList.remove('eat');
     for (i of snake) {
         i.classList.remove('snake_head', 'snake');
     }
+    xHead = null;
+    yHead = null;
     snake = [];
 }
 
 function changeMain() {
-
+    restartBtn = document.createElement("button");
+    let textBtn = document.createTextNode("Restart");
+    restartBtn.classList.add('main__restart');
+    restartBtn.appendChild(textBtn);
+    document.querySelector('.main__cell').appendChild(restartBtn);
 }

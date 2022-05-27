@@ -3,6 +3,25 @@
 // .container {}
 
 // .h1 {}
+.hiden {
+      display: 
+}
+.score {
+      margin: 10px auto;
+      display: flex;
+      justify-content: space-between;
+      // flex-wrap: wrap;
+      font-size: 30px;
+      &__record {
+            // display: block;
+      }
+      &__score {
+            // display: block;
+      }
+      &__hint {
+            // display: block;
+      }
+}
 
 .main {
       height: 642px;
@@ -16,9 +35,8 @@
             height: 10px;
             width: 10px;
             border: 1px solid rgb(216, 216, 216);
-            &_gray {
-                  // background-color: rgb(216, 216, 216);
-            }
+      &__restart{
+            
       }
 }
 
