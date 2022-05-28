@@ -3,9 +3,9 @@
 // .container {}
 
 // .h1 {}
-.hiden {
-      display: 
-}
+// .hiden {
+//       display: 
+// }
 .score {
       margin: 10px auto;
       display: flex;
@@ -19,7 +19,7 @@
             // display: block;
       }
       &__hint {
-            // display: block;
+            visibility: hidden;
       }
 }
 
