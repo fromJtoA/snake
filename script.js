@@ -8,19 +8,52 @@ let exTail;
 let cellEat;
 let cellBonusEat;
 let restartBtn;
+let score = 0;
+let scoreOutput = document.querySelector('.score__score');
+let record = 0;
+let recordOutput = document.querySelector('.score__record');
+let hintTimer;
+let hintOutput = document.querySelector('.score__hint');
 let countEat = 0;
 let cellsObstacles = [];
 let bonusTimer = 10000;
-let needObstacle = true;
+let obstacleTimer = 30000;
+let needObstacle = false;
 let direction = 'left';
 let intervalOfMoving;
 let intervalOfChangeObstacle;
 ////////////////////////////
 let difficulty = 5.5;
+let listenForMove = (e) => {
+    if (e.defaultPrevented) {
+        return;
+    }
+    if ((e.key == 'w' || e.key == 'W' || e.key == 'ц' || e.key == 'Ц' || e.key == 'ArrowUp')
+        && direction != 'down' && direction != 'up') {
+        clearInterval(intervalOfMoving);
+        moving(shiftUp);
+    }
+    if ((e.key == 's' || e.key == 'S' || e.key == 'ы' || e.key == 'Ы' || e.key == 'ArrowDown')
+        && direction != 'up' && direction != 'down') {
+        clearInterval(intervalOfMoving);
+        moving(shiftDown);
+    }
+    if ((e.key == 'a' || e.key == 'A' || e.key == 'ф' || e.key == 'Ф' || e.key == 'ArrowLeft')
+        && direction != 'right' && direction != 'left') {
+        clearInterval(intervalOfMoving);
+        moving(shiftLeft);
+    }
+    if ((e.key == 'd' || e.key == 'D' || e.key == 'в' || e.key == 'В' || e.key == 'ArrowRight')
+        && direction != 'left' && direction != 'right') {
+        clearInterval(intervalOfMoving);
+        moving(shiftRight);
+    }
+    e.preventDefault();
+};
 
 init();
 makeSnake();
-listenForMove(needListen);
+document.addEventListener('keydown', listenForMove, true);
 makeEat();
 changeObstacle(needObstacle);
 
@@ -43,7 +76,6 @@ function makeSnake() {
     snake.push(cells[36][32]);
     snake.push(cells[37][32]);
     snake.push(cells[38][32]);
-    needListen = true;
 }
 
 function deleteHeadAndTail() {
@@ -55,36 +87,6 @@ function makeHeadAndTail() {
     snake[0].classList.add('snake_head');
     snake[snake.length - 1].classList.add('snake_tail');
 }
-
-function listenForMove() {
-    document.addEventListener('keydown', (e) => {
-        if (e.defaultPrevented) {
-            return;
-        }
-        if ((e.key == 'w' || e.key == 'W' || e.key == 'ц' || e.key == 'Ц' || e.key == 'ArrowUp')
-            && direction != 'down' && direction != 'up') {
-            clearInterval(intervalOfMoving);
-            moving(shiftUp);
-        }
-        if ((e.key == 's' || e.key == 'S' || e.key == 'ы' || e.key == 'Ы' || e.key == 'ArrowDown')
-            && direction != 'up' && direction != 'down') {
-            clearInterval(intervalOfMoving);
-            moving(shiftDown);
-        }
-        if ((e.key == 'a' || e.key == 'A' || e.key == 'ф' || e.key == 'Ф' || e.key == 'ArrowLeft')
-            && direction != 'right' && direction != 'left') {
-            clearInterval(intervalOfMoving);
-            moving(shiftLeft);
-        }
-        if ((e.key == 'd' || e.key == 'D' || e.key == 'в' || e.key == 'В' || e.key == 'ArrowRight')
-            && direction != 'left' && direction != 'right') {
-            clearInterval(intervalOfMoving);
-            moving(shiftRight);
-        }
-        e.preventDefault();
-    }, true);
-}
-
 
 function shift() {
     cells[xHead][yHead].classList.add('snake');
@@ -181,7 +183,8 @@ function removeObstacle() {
 
 function changeObstacle(needObstacle) {
     if (needObstacle) {
-        intervalOfChangeObstacle = setInterval(() => { removeObstacle(); makeObstacle(); }, 30000 - difficulty * 5000);
+        intervalOfChangeObstacle = setInterval(() => { removeObstacle(); makeObstacle(); },
+            obstacleTimer - difficulty * 5000);
     }
 }
 
@@ -202,6 +205,7 @@ function checkEat() {
             makeHeadAndTail();
             makeEat();
             checkBonusTime();
+            addScore();
         } else {
             eat.classList.remove('bonus_eat');
             exTail.classList.add('snake');
@@ -217,6 +221,8 @@ function checkBonusTime() {
         countEat = 0;
         makeBonusEat();
         removeBonusEat();
+        console.log('zaaaDonbaaaaaaassNahyyyyyyyyyiiiii');
+        makeHint();
     }
 }
 
@@ -225,15 +231,19 @@ function checkLose() {
         (document.querySelectorAll('div.snake_head.obstacle').length > 0)) {
         clearInterval(intervalOfMoving);
         clearInterval(intervalOfChangeObstacle);
-        needListen = false;
+        document.removeEventListener('keydown', listenForMove, true);
         removeAll();
         changeMain();
+        checkRecord();
+        score = 0;
     }
 }
 
 function removeAll() {
     removeObstacle();
-    cellBonusEat.classList.remove('bonus_eat');
+    if (cellBonusEat) {
+        cellBonusEat.classList.remove('bonus_eat');
+    }
     cellEat.classList.remove('eat');
     for (i of snake) {
         i.classList.remove('snake_head', 'snake');
@@ -244,9 +254,30 @@ function removeAll() {
 }
 
 function changeMain() {
-    restartBtn = document.createElement("button");
-    let textBtn = document.createTextNode("Restart");
+    restartBtn = document.createElement('button');
+    let textBtn = document.createTextNode('Restart');
     restartBtn.classList.add('main__restart');
     restartBtn.appendChild(textBtn);
-    document.querySelector('.main__cell').appendChild(restartBtn);
+    let main = document.querySelector('.main');
+    main.appendChild(restartBtn);
+    main.style.opacity = '0.5';
+}
+
+function addScore() {
+    score += difficulty * 10;
+    scoreOutput.innerHTML = 'Score: ' + score;
+}
+
+function checkRecord() {
+    if (score > record) { 
+        record = score;
+        recordOutput.innerHTML = 'Record: ' + record;
+    }
+}
+//////////////////////////////////
+function makeHint() {
+    hintOutput.style.visibility = 'visible';
+    for (let i = 10; i> 0; i--) {
+        setTimeout( () => hintOutput.innerHTML = 'Bonus eat disappearing in: ' + i + ' sec', 1000);
+    }
 }
