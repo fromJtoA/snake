@@ -17,6 +17,7 @@ let hintOutput = document.querySelector('.score__hint');
 let countEat = 0;
 let cellsObstacles = [];
 let bonusTimer = 10000;
+let bonusSec = bonusTimer / 1000;
 let obstacleTimer = 30000;
 let needObstacle = false;
 let direction = 'left';
@@ -217,11 +218,11 @@ function checkEat() {
 }
 
 function checkBonusTime() {
-    if (countEat % 5 == 0) {
+    /////////////////////////////////
+    if (countEat % 2 == 0) {
         countEat = 0;
         makeBonusEat();
         removeBonusEat();
-        console.log('zaaaDonbaaaaaaassNahyyyyyyyyyiiiii');
         makeHint();
     }
 }
@@ -269,7 +270,7 @@ function addScore() {
 }
 
 function checkRecord() {
-    if (score > record) { 
+    if (score > record) {
         record = score;
         recordOutput.innerHTML = 'Record: ' + record;
     }
@@ -277,7 +278,19 @@ function checkRecord() {
 //////////////////////////////////
 function makeHint() {
     hintOutput.style.visibility = 'visible';
-    for (let i = 10; i> 0; i--) {
-        setTimeout( () => hintOutput.innerHTML = 'Bonus eat disappearing in: ' + i + ' sec', 1000);
-    }
+    
+    let IntervalOfHint = setInterval(() => {
+        bonusSec--;
+        hintOutput.innerHTML = 'Bonus eat disappearing in: ' + bonusSec + ' sec';
+        
+        console.log(bonusSec);
+        if (bonusSec == 0) {
+            bonusSec = bonusTimer / 1000;
+            clearInterval(IntervalOfHint);
+            hintOutput.style.visibility = 'hidden';
+
+        }
+        
+    }, 1000);
+
 }

@@ -4,63 +4,63 @@
 
 // .h1 {}
 // .hiden {
-//       display: 
+//       display:
 // }
 .score {
-      margin: 10px auto;
-      display: flex;
-      justify-content: space-between;
-      // flex-wrap: wrap;
-      font-size: 30px;
-      &__record {
-            // display: block;
-      }
-      &__score {
-            // display: block;
-      }
-      &__hint {
-            visibility: hidden;
-      }
+  margin: 10px auto;
+  max-width: 70%;
+  display: flex;
+  justify-content: space-between;
+  // flex-wrap: wrap;
+  font-size: 30px;
+//   &__record {
+//     // display: block;
+//   }
+//   &__score {
+//     // display: block;
+//   }
+  &__hint {
+    visibility: hidden;
+  }
 }
 
 .main {
-      height: 642px;
-      width: 642px;
-      margin: 20px auto;
-      display: flex;
-      flex-wrap: wrap;
-      border: 1px solid orange;
+  height: 642px;
+  width: 642px;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid orange;
 
-      &__cell {
-            height: 10px;
-            width: 10px;
-            border: 1px solid rgb(216, 216, 216);
-      &__restart{
-            
-      }
+  &__cell {
+    height: 10px;
+    width: 10px;
+    border: 1px solid rgb(216, 216, 216);
+    // &__restart{
+
+    // }
+  }
 }
 
 .snake {
-      background-color: rgb(112, 204, 89);
-
+  background-color: rgb(112, 204, 89);
 }
 
 .snake_head {
-      background-color: rgb(33, 143, 11);
-     
+  background-color: rgb(33, 143, 11);
 }
 .snake_tail {
-      // background-color: rgb(187, 79, 219);
+  // background-color: rgb(187, 79, 219);
 }
 
 .eat {
-      background-color: rgb(0, 192, 218);
+  background-color: rgb(0, 192, 218);
 }
 
 .bonus_eat {
-      background-color: rgb(233, 5, 73);
+  background-color: rgb(233, 5, 73);
 }
 
 .obstacle {
-      background-color: rgb(48, 49, 28);
+  background-color: rgb(48, 49, 28);
 }

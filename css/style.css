@@ -80,12 +80,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .score {
   margin: 10px auto;
+  max-width: 70%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-size: 30px;
+}
+
+.score__hint {
+  visibility: hidden;
 }
 
 .main {
