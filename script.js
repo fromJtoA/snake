@@ -213,6 +213,7 @@ function checkEat() {
             snake.push(exTail);
             deleteHeadAndTail();
             makeHeadAndTail();
+            addScoreForBonus();
         }
     }
 }
@@ -269,28 +270,27 @@ function addScore() {
     scoreOutput.innerHTML = 'Score: ' + score;
 }
 
+function addScoreForBonus() {
+    score += difficulty * 10 * bonusSec;
+    scoreOutput.innerHTML = 'Score: ' + score;
+}
+
 function checkRecord() {
     if (score > record) {
         record = score;
         recordOutput.innerHTML = 'Record: ' + record;
     }
 }
-//////////////////////////////////
+
 function makeHint() {
     hintOutput.style.visibility = 'visible';
-    
     let IntervalOfHint = setInterval(() => {
-        bonusSec--;
-        hintOutput.innerHTML = 'Bonus eat disappearing in: ' + bonusSec + ' sec';
-        
-        console.log(bonusSec);
-        if (bonusSec == 0) {
+        if (bonusSec == 1) {
             bonusSec = bonusTimer / 1000;
             clearInterval(IntervalOfHint);
             hintOutput.style.visibility = 'hidden';
-
         }
-        
+        bonusSec--;
+        hintOutput.innerHTML = 'Bonus eat disappearing in: ' + bonusSec + ' sec';        
     }, 1000);
-
 }

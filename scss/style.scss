@@ -1,25 +1,55 @@
 @import "_zeros.scss";
 
-// .container {}
+body {
+  background: green url("../assets/bg.jpg") 0 0/100% auto no-repeat;
+  overflow: hidden;
+}
+
+p {
+  background-color: burlywood;
+  border: 3px solid rgb(216, 216, 216);
+}
+// .container {
+//   background: url('../assets/bg.jpg') 0 0/100% auto no-repeat;
+// }
 
 // .h1 {}
 // .hiden {
 //       display:
 // }
+.settings {
+  position: absolute;
+  top: 15px;
+  width: 105px;
+  height: 105px;
+  background: url(../assets/settings.png) 0 0/100% 100% no-repeat;
+filter: invert(83%) sepia(14%) saturate(1000%) hue-rotate(345deg) brightness(93%) contrast(87%);
+}
+
+.top {
+  position: relative;
+  margin: 10px auto;
+  max-width: 642px;
+  display: flex;
+}
+
 .score {
   margin: 10px auto;
-  max-width: 70%;
+  max-width: 642px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  // flex-wrap: wrap;
+  color: white;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 30px;
-//   &__record {
-//     // display: block;
-//   }
-//   &__score {
-//     // display: block;
-//   }
+  &__record {
+    margin: 5px auto;
+  }
+  &__score {
+    margin: 5px auto;
+  }
   &__hint {
+    // margin: 5px auto;
     visibility: hidden;
   }
 }
@@ -30,11 +60,12 @@
   margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid orange;
+  border: 1px solid rgb(216, 216, 216);
 
   &__cell {
     height: 10px;
     width: 10px;
+    background-color: azure;
     border: 1px solid rgb(216, 216, 216);
     // &__restart{
 
