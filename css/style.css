@@ -78,24 +78,17 @@ h1, h2, h3, h4, h5, h6 {
   color: red;
 }
 
+* {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
 body {
   background: green url("../assets/bg.jpg") 0 0/100% auto no-repeat;
   overflow: hidden;
 }
 
-p {
-  background-color: burlywood;
-  border: 3px solid #d8d8d8;
-}
-
-.settings {
-  position: absolute;
-  top: 15px;
-  width: 105px;
-  height: 105px;
-  background: url(../assets/settings.png) 0 0/100% 100% no-repeat;
-  -webkit-filter: invert(83%) sepia(14%) saturate(1000%) hue-rotate(345deg) brightness(93%) contrast(87%);
-          filter: invert(83%) sepia(14%) saturate(1000%) hue-rotate(345deg) brightness(93%) contrast(87%);
+h3 {
+  margin: 10px 0;
 }
 
 .top {
@@ -105,6 +98,62 @@ p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.settings {
+  display: none;
+  position: absolute;
+  top: 15px;
+  width: 105px;
+  height: 105px;
+  background: url(../assets/settings.png) 0 0/100% 100% no-repeat;
+  -webkit-filter: invert(83%) sepia(14%) saturate(1000%) hue-rotate(345deg) brightness(93%) contrast(87%);
+          filter: invert(83%) sepia(14%) saturate(1000%) hue-rotate(345deg) brightness(93%) contrast(87%);
+}
+
+.settings__panel {
+  display: none;
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  z-index: 2;
+  border-radius: 20px;
+  padding: 10px;
+  width: 420px;
+  background-color: burlywood;
+  color: white;
+  font-size: 25px;
+}
+
+#veryHard,
+#easy {
+  margin: 5px 0 5px 0;
+}
+
+#hard,
+#medium,
+#snail {
+  margin: 5px 0 5px 35px;
+}
+
+.control {
+  border-radius: 15px;
+  -webkit-filter: invert(83%) sepia(14%) saturate(1000%) hue-rotate(345deg) brightness(93%) contrast(87%);
+          filter: invert(83%) sepia(14%) saturate(1000%) hue-rotate(345deg) brightness(93%) contrast(87%);
+}
+
+.start {
+  display: none;
+  position: absolute;
+  height: 65px;
+  width: 100px;
+  z-index: 2;
+  margin: 50vh 47vw;
+  border: 3px solid #d8d8d8;
+  border-radius: 7px;
+  color: white;
+  font-size: 40px;
+  background-color: burlywood;
 }
 
 .score {
@@ -121,26 +170,33 @@ p {
       -ms-flex-pack: justify;
           justify-content: space-between;
   color: white;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 30px;
 }
 
 .score__record {
+  background-color: burlywood;
+  border: 3px solid #d8d8d8;
   margin: 5px auto;
 }
 
 .score__score {
+  background-color: burlywood;
+  border: 3px solid #d8d8d8;
   margin: 5px auto;
 }
 
 .score__hint {
+  background-color: burlywood;
+  border: 3px solid #d8d8d8;
+  margin: 5px auto;
   visibility: hidden;
 }
 
 .main {
+  display: none;
   height: 642px;
   width: 642px;
-  margin: 20px auto;
+  margin: 5px auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -156,11 +212,15 @@ p {
   border: 1px solid #d8d8d8;
 }
 
+.active {
+  display: block;
+}
+
 .snake {
   background-color: #70cc59;
 }
 
-.snake_head {
+.snake__head {
   background-color: #218f0b;
 }
 
@@ -168,7 +228,7 @@ p {
   background-color: #00c0da;
 }
 
-.bonus_eat {
+.bonus-eat {
   background-color: #e90549;
 }
 

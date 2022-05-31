@@ -10,8 +10,30 @@
 </head>
 <body>
     <div class="container">
+        <button class="start active">Start</button>
         <section class="top">
-            <button class="settings"></button>
+            <button class="settings active"></button>
+
+            <form class="settings__panel">
+                    <h3>Choose difficulty:</h3>
+                    <input type="radio" id="veryHard" name="difficulty" autocomplete="off" checked>
+                    <label for="veryHard">very hard</label>
+                    <input type="radio" id="hard" name="difficulty" autocomplete="off">
+                    <label for="hard">hard</label>
+                    <input type="radio" id="medium" name="difficulty" autocomplete="off">
+                    <label for="medium">medium</label>
+                    <br>
+                    <input type="radio" id="easy" name="difficulty" autocomplete="off">
+                    <label for="easy">easy</label>
+                    <input type="radio" id="snail" name="difficulty" autocomplete="off">
+                    <label for="snail">snail</label>
+                <br>
+                <input type="checkbox" id="obstacles" name="obstacles" autocomplete="off" checked>
+                <label for="obstacles">random obstacles</label>
+                <br>
+                <h3>Control buttons:</h3>
+                <img src="/assets/wasd.jpg" alt="wasd" class="control">
+                </form>
             <div class="score">
                 <p class="score__record"> Record: 0 </p>
                 <p class="score__score"> Score: 0 </p>
