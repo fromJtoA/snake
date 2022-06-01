@@ -158,7 +158,6 @@ h3 {
 
 .score {
   margin: 10px auto;
-  max-width: 642px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -193,9 +192,8 @@ h3 {
 }
 
 .main {
-  display: none;
-  height: 642px;
   width: 642px;
+  height: 642px;
   margin: 5px auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -206,8 +204,8 @@ h3 {
 }
 
 .main__cell {
-  height: 10px;
   width: 10px;
+  height: 10px;
   background-color: azure;
   border: 1px solid #d8d8d8;
 }
@@ -243,4 +241,40 @@ h3 {
 
 .obstacle {
   background-color: #30311c;
+}
+
+@media screen and (max-height: 820px) {
+  .top {
+    margin: 5px auto;
+    max-width: 514px;
+  }
+  .score {
+    margin: 5px auto;
+    font-size: 20px;
+  }
+  .score__record {
+    border: 1px solid #d8d8d8;
+    margin: 2px auto;
+  }
+  .score__score {
+    border: 1px solid #d8d8d8;
+    margin: 2px auto;
+  }
+  .score__hint {
+    border: 1px solid #d8d8d8;
+    margin: 2px auto;
+  }
+  .settings {
+    width: 55px;
+    height: 55px;
+  }
+  .main {
+    width: 514px;
+    height: 514px;
+    margin: 2px auto;
+  }
+  .main__cell {
+    width: 8px;
+    height: 8px;
+  }
 }
