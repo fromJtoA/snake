@@ -37,7 +37,6 @@ h3 {
     border-radius: 20px;
     padding: 10px;
     width: 420px;
-    // height: 700px;
     background-color: burlywood;
     color: white;
     font-size: 25px;
@@ -77,7 +76,6 @@ h3 {
 
 .score {
   margin: 10px auto;
-  max-width: 642px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -102,16 +100,15 @@ h3 {
 }
 
 .main {
-  display: none;
-  height: 642px;
   width: 642px;
+  height: 642px;
   margin: 5px auto;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid rgb(216, 216, 216);
   &__cell {
-    height: 10px;
     width: 10px;
+    height: 10px;
     background-color: azure;
     border: 1px solid rgb(216, 216, 216);
   }
@@ -144,4 +141,40 @@ h3 {
 
 .obstacle {
   background-color: rgb(48, 49, 28);
+}
+
+@media screen and (max-height: 820px) {
+  .top {
+    margin: 5px auto;
+    max-width: 514px;
+  }
+  .score {
+    margin: 5px auto;
+    font-size: 20px;
+    &__record {
+      border: 1px solid rgb(216, 216, 216);
+      margin: 2px auto;
+    }
+    &__score {
+      border: 1px solid rgb(216, 216, 216);
+      margin: 2px auto;
+    }
+    &__hint {
+      border: 1px solid rgb(216, 216, 216);
+      margin: 2px auto;
+    }
+  }
+  .settings {
+    width: 55px;
+    height: 55px;
+  }
+  .main {
+    width: 514px;
+    height: 514px;
+    margin: 2px auto;
+    &__cell {
+      width: 8px;
+      height: 8px;
+    }
+  }
 }
