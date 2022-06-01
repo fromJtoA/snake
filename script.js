@@ -56,13 +56,9 @@ let listenForMove = (e) => {
 
 let listenSettings = (e) => {
     let panel = document.querySelector('.settings__panel');
-    // if (e.target.closest('.settings')) {
-        panel.classList.toggle('active');
-        startBtn.classList.toggle('active');
-    // }
-    // if (!e.target.closest('.settings__panel')) {
-    //     panel.classList.remove('active');
-    // }
+    panel.classList.toggle('active');
+    settingsBtn.classList.toggle('rotate');
+    startBtn.classList.toggle('active');
 }
 
 let listenStart = (e) => {
@@ -278,7 +274,8 @@ function checkLose() {
         changeMain();
         checkRecord();
         removeHint();
-        score = 0;
+        zeroingScore();
+        countEat = 0;
     }
 }
 
@@ -308,6 +305,11 @@ function addScore() {
 
 function addScoreForBonus() {
     score += difficulty * 10 * bonusSec;
+    scoreOutput.innerHTML = 'Score: ' + score;
+}
+
+function zeroingScore() {
+    score = 0;
     scoreOutput.innerHTML = 'Score: ' + score;
 }
 

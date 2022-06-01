@@ -216,6 +216,15 @@ h3 {
   display: block;
 }
 
+.rotate {
+  -webkit-transform: rotate(0.25turn);
+          transform: rotate(0.25turn);
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+}
+
 .snake {
   background-color: #70cc59;
 }

@@ -121,6 +121,11 @@ h3 {
   display: block;
 }
 
+.rotate {
+  transform: rotate(0.25turn);
+  transition: transform 1s;
+}
+
 .snake {
   background-color: rgb(112, 204, 89);
 }
